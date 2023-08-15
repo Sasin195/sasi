@@ -1,92 +1,22 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Car Racing Game</title>
-  <style>
-    #game-container {
-      width: 400px;
-      height: 600px;
-      border: 1px solid black;
-      position: relative;
-      overflow: hidden;
-    }
-    #car {
-      width: 50px;
-      height: 80px;
-      background-color: blue;
-      position: absolute;
-      bottom: 0;
-      left: 175px;
-    }
-    .obstacle {
-      width: 50px;
-      height: 50px;
-      background-color: red;
-      position: absolute;
-      bottom: 100%;
-      transform-origin: bottom center;
-    }
-  </style>
+<style>
+  .red-text {
+    color: red;
+  }
+  
+  .blue-background {
+    background-color: blue;
+    color: white;
+  }
+</style>
 </head>
 <body>
-  <h1>Car Racing Game</h1>
-  <div id="game-container">
-    <div id="car"></div>
-  </div>
 
-  <script>
-    const car = document.getElementById("car");
-    const gameContainer = document.getElementById("game-container");
-    let carPosition = 175;
-    
-    function moveCar(direction) {
-      if (direction === "left" && carPosition > 0) {
-        carPosition -= 10;
-      } else if (direction === "right" && carPosition < 350) {
-        carPosition += 10;
-      }
-      car.style.left = carPosition + "px";
-    }
-    
-    function createObstacle() {
-      const obstacle = document.createElement("div");
-      obstacle.classList.add("obstacle");
-      obstacle.style.left = Math.random() * 350 + "px";
-      gameContainer.appendChild(obstacle);
-      
-      const obstacleInterval = setInterval(() => {
-        const obstacleBottom = parseInt(obstacle.style.bottom);
-        if (obstacleBottom >= 600) {
-          clearInterval(obstacleInterval);
-          obstacle.remove();
-        } else {
-          obstacle.style.bottom = obstacleBottom + 10 + "px";
-        }
-        
-        const carRect = car.getBoundingClientRect();
-        const obstacleRect = obstacle.getBoundingClientRect();
-        if (
-          carRect.bottom > obstacleRect.top &&
-          carRect.top < obstacleRect.bottom &&
-          carRect.right > obstacleRect.left &&
-          carRect.left < obstacleRect.right
-        ) {
-          alert("Game Over!");
-          clearInterval(gameInterval);
-          window.location.reload();
-        }
-      }, 50);
-    }
-    
-    document.addEventListener("keydown", (event) => {
-      if (event.key === "ArrowLeft") {
-        moveCar("left");
-      } else if (event.key === "ArrowRight") {
-        moveCar("right");
-      }
-    });
-    
-    const gameInterval = setInterval(createObstacle, 2000);
-  </script>
+<h1>This is a Heading</h1>
+<p>This is a paragraph with <span class="red-text">red-colored text</span>.</p>
+<p class="blue-background">This is a paragraph with a blue background and white text color.</p>
+
 </body>
 </html>
