@@ -1,12 +1,79 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Colored Text Example</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #f5f5f5;
+  }
+
+  .game-container {
+    text-align: center;
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  }
+
+  button {
+    background-color: #3498db;
+    color: #ffffff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  button:hover {
+    background-color: #2980b9;
+  }
+</style>
+<title>Guess the Number Game</title>
 </head>
 <body>
-  <p>This is <span style="color: red;">red</span> text.</p>
-  <p>This is <span style="color: blue;">blue</span> text.</p>
-  <p>This is <span style="color: green;">green</span> text.</p>
+<div class="game-container">
+  <h1>Guess the Number Game</h1>
+  <p>Try to guess the secret number between 1 and 100.</p>
+  <input type="number" id="guess" min="1" max="100" placeholder="Enter your guess">
+  <button onclick="checkGuess()">Submit Guess</button>
+  <p id="message"></p>
+</div>
+
+<script>
+  const secretNumber = Math.floor(Math.random() * 100) + 1;
+  let attempts = 0;
+
+  function checkGuess() {
+    const guess = parseInt(document.getElementById("guess").value);
+    attempts++;
+
+    if (isNaN(guess) || guess < 1 || guess > 100) {
+      showMessage("Please enter a valid number between 1 and 100.");
+    } else if (guess === secretNumber) {
+      showMessage(`Congratulations! You guessed the number ${secretNumber} in ${attempts} attempts.`);
+      disableInput();
+    } else {
+      const message = guess < secretNumber ? "Try a higher number." : "Try a lower number.";
+      showMessage(message);
+    }
+  }
+
+  function showMessage(message) {
+    document.getElementById("message").textContent = message;
+  }
+
+  function disableInput() {
+    document.getElementById("guess").disabled = true;
+    document.querySelector("button").disabled = true;
+  }
+</script>
 </body>
 </html>
-
